@@ -4,7 +4,7 @@ public class Test {
 
         System.out.println(123);
 
-        System.out.println("测试");
+        System.out.println("测试2.0");
 
     }
 
