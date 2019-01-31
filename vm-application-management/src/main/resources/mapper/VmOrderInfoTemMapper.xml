@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springboot.dao.VmOrderInfoTemMapper">
+  <resultMap id="BaseResultMap" type="com.springboot.model.VmOrderInfoTem">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="VMName" jdbcType="VARCHAR" property="vmname" />
+    <result column="application" jdbcType="VARCHAR" property="application" />
+    <result column="systemName" jdbcType="VARCHAR" property="systemname" />
+    <result column="RAM" jdbcType="INTEGER" property="ram" />
+    <result column="memory" jdbcType="INTEGER" property="memory" />
+    <result column="CPU" jdbcType="INTEGER" property="cpu" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="applicant" jdbcType="VARCHAR" property="applicant" />
+    <result column="section" jdbcType="VARCHAR" property="section" />
+    <result column="startDate" jdbcType="TIMESTAMP" property="startdate" />
+    <result column="endDate" jdbcType="TIMESTAMP" property="enddate" />
+    <result column="increaseTheTime" jdbcType="INTEGER" property="increasethetime" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="adminId" jdbcType="INTEGER" property="adminid" />
+    <result column="environment" jdbcType="VARCHAR" property="environment" />
+    <result column="applicantId" jdbcType="INTEGER" property="applicantid" />
+    <result column="admin" jdbcType="VARCHAR" property="admin" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="appState" jdbcType="INTEGER" property="appState" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, VMName, application, systemName, RAM, memory, CPU, number, applicant, section, 
+    startDate, endDate, increaseTheTime, username, password, remark, adminId, environment, 
+    applicantId, admin, ip, state,appState
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from vm_order_info_tem
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultType="com.springboot.model.VMOrderInfo">
+    select
+    <include refid="Base_Column_List" />
+    from vm_order_info_tem
+    where applicantId = #{id}
+    order by startDate desc
+    limit #{pagelimit},#{pagesize}
+  </select>
+  <select id="selectCount" parameterType="com.springboot.model.VMOrderInfo" resultType="java.lang.Integer">
+    select count(id)
+    from vm_order_info_tem
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from vm_order_info_tem
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="delectAll">
+    delete from vm_order_info_tem
+    where applicantId = #{id}
+  </delete>
+  <insert id="insert" parameterType="com.springboot.model.VmOrderInfoTem">
+    insert into vm_order_info_tem (id, VMName, application, 
+      systemName, RAM, memory, 
+      CPU, number, applicant, 
+      section, startDate, endDate, 
+      increaseTheTime, username, password, 
+      remark, adminId, environment, 
+      applicantId, admin, ip, 
+      state)
+    values (#{id,jdbcType=INTEGER}, #{vmname,jdbcType=VARCHAR}, #{application,jdbcType=VARCHAR}, 
+      #{systemname,jdbcType=VARCHAR}, #{ram,jdbcType=INTEGER}, #{memory,jdbcType=INTEGER}, 
+      #{cpu,jdbcType=INTEGER}, #{number,jdbcType=INTEGER}, #{applicant,jdbcType=VARCHAR}, 
+      #{section,jdbcType=VARCHAR}, #{startdate,jdbcType=TIMESTAMP}, #{enddate,jdbcType=TIMESTAMP}, 
+      #{increasethetime,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{adminid,jdbcType=INTEGER}, #{environment,jdbcType=VARCHAR}, 
+      #{applicantid,jdbcType=INTEGER}, #{admin,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, 
+      #{state,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.springboot.model.VmOrderInfoTem">
+    insert into vm_order_info_tem
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="vmname != null">
+        VMName,
+      </if>
+      <if test="application != null">
+        application,
+      </if>
+      <if test="systemname != null">
+        systemName,
+      </if>
+      <if test="ram != null">
+        RAM,
+      </if>
+      <if test="memory != null">
+        memory,
+      </if>
+      <if test="cpu != null">
+        CPU,
+      </if>
+      <if test="number != null">
+        number,
+      </if>
+      <if test="applicant != null">
+        applicant,
+      </if>
+      <if test="section != null">
+        section,
+      </if>
+      <if test="startdate != null">
+        startDate,
+      </if>
+      <if test="enddate != null">
+        endDate,
+      </if>
+      <if test="increasethetime != null">
+        increaseTheTime,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="adminid != null">
+        adminId,
+      </if>
+      <if test="environment != null">
+        environment,
+      </if>
+      <if test="applicantid != null">
+        applicantId,
+      </if>
+      <if test="admin != null">
+        admin,
+      </if>
+      <if test="ip != null">
+        ip,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="appState != null">
+        appState,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="vmname != null">
+        #{vmname,jdbcType=VARCHAR},
+      </if>
+      <if test="application != null">
+        #{application,jdbcType=VARCHAR},
+      </if>
+      <if test="systemname != null">
+        #{systemname,jdbcType=VARCHAR},
+      </if>
+      <if test="ram != null">
+        #{ram,jdbcType=INTEGER},
+      </if>
+      <if test="memory != null">
+        #{memory,jdbcType=INTEGER},
+      </if>
+      <if test="cpu != null">
+        #{cpu,jdbcType=INTEGER},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="applicant != null">
+        #{applicant,jdbcType=VARCHAR},
+      </if>
+      <if test="section != null">
+        #{section,jdbcType=VARCHAR},
+      </if>
+      <if test="startdate != null">
+        #{startdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enddate != null">
+        #{enddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="increasethetime != null">
+        #{increasethetime,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="adminid != null">
+        #{adminid,jdbcType=INTEGER},
+      </if>
+      <if test="environment != null">
+        #{environment,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantid != null">
+        #{applicantid,jdbcType=INTEGER},
+      </if>
+      <if test="admin != null">
+        #{admin,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="appState != null">
+        #{appState,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.springboot.model.VmOrderInfoTem">
+    update vm_order_info_tem
+    <set>
+      <if test="vmname != null">
+        VMName = #{vmname,jdbcType=VARCHAR},
+      </if>
+      <if test="application != null">
+        application = #{application,jdbcType=VARCHAR},
+      </if>
+      <if test="systemname != null">
+        systemName = #{systemname,jdbcType=VARCHAR},
+      </if>
+      <if test="ram != null">
+        RAM = #{ram,jdbcType=INTEGER},
+      </if>
+      <if test="memory != null">
+        memory = #{memory,jdbcType=INTEGER},
+      </if>
+      <if test="cpu != null">
+        CPU = #{cpu,jdbcType=INTEGER},
+      </if>
+      <if test="number != null">
+        number = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="applicant != null">
+        applicant = #{applicant,jdbcType=VARCHAR},
+      </if>
+      <if test="section != null">
+        section = #{section,jdbcType=VARCHAR},
+      </if>
+      <if test="startdate != null">
+        startDate = #{startdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enddate != null">
+        endDate = #{enddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="increasethetime != null">
+        increaseTheTime = #{increasethetime,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="adminid != null">
+        adminId = #{adminid,jdbcType=INTEGER},
+      </if>
+      <if test="environment != null">
+        environment = #{environment,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantid != null">
+        applicantId = #{applicantid,jdbcType=INTEGER},
+      </if>
+      <if test="admin != null">
+        admin = #{admin,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.springboot.model.VmOrderInfoTem">
+    update vm_order_info_tem
+    set VMName = #{vmname,jdbcType=VARCHAR},
+      application = #{application,jdbcType=VARCHAR},
+      systemName = #{systemname,jdbcType=VARCHAR},
+      RAM = #{ram,jdbcType=INTEGER},
+      memory = #{memory,jdbcType=INTEGER},
+      CPU = #{cpu,jdbcType=INTEGER},
+      number = #{number,jdbcType=INTEGER},
+      applicant = #{applicant,jdbcType=VARCHAR},
+      section = #{section,jdbcType=VARCHAR},
+      startDate = #{startdate,jdbcType=TIMESTAMP},
+      endDate = #{enddate,jdbcType=TIMESTAMP},
+      increaseTheTime = #{increasethetime,jdbcType=INTEGER},
+      username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      adminId = #{adminid,jdbcType=INTEGER},
+      environment = #{environment,jdbcType=VARCHAR},
+      applicantId = #{applicantid,jdbcType=INTEGER},
+      admin = #{admin,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
